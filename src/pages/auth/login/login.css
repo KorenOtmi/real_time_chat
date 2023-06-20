@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  height: 100vh;
+  justify-content: center;
+}
+
+.form {
+  border: 1px solid gray;
+  width: 100%;
+  padding: 5px;
+}
+.btn {
+  width: 100%;
+}
+span {
+  color: brown;
+  text-decoration: none;
+}
+.link-span {
+  text-decoration: none;
+  color: rgb(107, 107, 107);
+}
+.link-span:hover {
+  text-decoration: none;
+  color: rgb(47, 46, 46);
+}
