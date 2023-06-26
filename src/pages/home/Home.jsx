@@ -5,14 +5,10 @@ import './home.css'
 
 const Home = () => {
 
-
     const BtnSend = (e) => {
         e.preventDefault();
-
         console.log('work')
     }
-
-
 
     return (
         <main className="content">
