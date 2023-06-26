@@ -1,12 +1,8 @@
-const usersModel = require("../models/usersModel");
+const con = require('../DB/db');
 
 exports.GetUsers = async (req, res) => {
-    try {
-        const users = await usersModel.find({});
-        console.log(users);
-        res.status(200).json(users);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Database Error!' });
-    }
+    await con.execute("SELECT * FROM users", (err, result) => {
+        if (err) return err
+        res.send(result)
+    });
 };

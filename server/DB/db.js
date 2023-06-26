@@ -1,11 +1,11 @@
-// import mongoose from "mongoose";
+const mysql = require('mysql2');
 
-// const connect = async () => {
-//     try {
-//         await mongoose.connect('mongodb+srv://realtimechat:realtimechat@chats.07kttbn.mongodb.net/?retryWrites=true&w=majority');
-//     } catch (error) {
-//         throw new Error("Connection failed!")
-//     }
-// }
+const conn = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "realtimechat"
+})
 
-// export default connect;
+
+module.exports = conn;
