@@ -1,12 +1,17 @@
 const con = require('../DB/db');
 const bcrypt = require('bcryptjs');
 
-exports.GetUsers = async (req, res) => {
-    await con.execute("SELECT * FROM users", (err, result) => {
-        if (err) return err
-        res.send(result)
-    });
-};
+// exports.GetUsers = async (req, res) => {
+//     await con.execute("SELECT * FROM users", (err, result) => {
+//         if (err) return err
+//         res.send(result)
+//     });
+// };
+
+exports.getUsersById = async (req, res) => {
+
+}
+
 
 exports.Register = async (req, res) => {
     const { fullName, username, password, image } = req.body;
@@ -38,7 +43,7 @@ exports.Login = async (req, res) => {
                     res.send(result);
                 }
                 else {
-                    res.send({ message: "Wrong email/password combination !" });
+                    res.send({ message: "Wrong username/password combination !" });
                 }
             })
         }

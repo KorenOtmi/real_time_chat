@@ -7,8 +7,6 @@ const usersRoutes = require('./routes/usersRoutes');
 
 
 
-
-
 const app = express();
 
 
@@ -18,8 +16,10 @@ app.use(cors());
 // app.use(bodyParser.urlencoded({ extended: true }))
 
 
-
 app.use('/api', usersRoutes);
+
+
+
 
 app.get('/', async (req, res) => {
     res.send('home')

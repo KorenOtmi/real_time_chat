@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from "react-router-dom";
-import './signup.css';
+
 
 const Register = () => {
     return (
@@ -30,7 +30,7 @@ const Register = () => {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                    <Box component="form" noValidate sx={{ mt: 1 }} >
                         <TextField
                             margin="normal"
                             required
@@ -40,6 +40,7 @@ const Register = () => {
                             name="fullName"
                             autoComplete="fullName"
                             autoFocus
+                            
                         />
                         <TextField
                             margin="normal"
