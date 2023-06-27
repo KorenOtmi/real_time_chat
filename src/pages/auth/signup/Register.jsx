@@ -1,18 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Register = () => {
+
+    const navigate = useNavigate();
+
+    const [fullName, setFullName] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [image, setImage] = useState(null);
+
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('fullName', fullName);
+        formData.append('username', username);
+        formData.append('password', password);
+        formData.append('UserImage', image);
+
+
+        await axios.post('http://localhost:5000/api/register', formData)
+
+            .then(response => {
+                if (response.data.message) {
+                    toast.error(response.data.message)
+                    console.log(response.data)
+                }
+                else {
+                    navigate('/')
+                }
+            })
+            .catch(error => {
+                console.error('Error inserting data', error);
+            });
+    }
+
+
+
     return (
         <div className="main-div">
             <Container component="main" maxWidth="xs">
@@ -40,7 +78,9 @@ const Register = () => {
                             name="fullName"
                             autoComplete="fullName"
                             autoFocus
-                            
+                            value={FormData.fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+
                         />
                         <TextField
                             margin="normal"
@@ -51,6 +91,8 @@ const Register = () => {
                             name="username"
                             autoComplete="username"
                             autoFocus
+                            value={FormData.username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <TextField
                             margin="normal"
@@ -61,6 +103,8 @@ const Register = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={FormData.password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <TextField
                             margin="normal"
@@ -70,16 +114,14 @@ const Register = () => {
                             type="file"
                             id="image"
                             autoComplete="image"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
+                            onChange={(e) => setImage(e.target.files[0])}
                         />
                         <Button className="button"
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            onClick={handleRegister}
 
                         >
                             Sign Up

@@ -14,7 +14,8 @@ exports.getUsersById = async (req, res) => {
 
 
 exports.Register = async (req, res) => {
-    const { fullName, username, password, image } = req.body;
+    const { fullName, username, password} = req.body;
+    const image = req.file.filename;
 
     con.execute("SELECT username FROM users WHERE username=?", [username], async (err, result) => {
         if (err) return res.json(err)

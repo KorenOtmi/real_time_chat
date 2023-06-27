@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 
 const usersRoutes = require('./routes/usersRoutes');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 
 
@@ -13,17 +13,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-// app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 app.use('/api', usersRoutes);
 
 
-
-
 app.get('/', async (req, res) => {
     res.send('home')
 });
+
+
 
 
 // Start the server

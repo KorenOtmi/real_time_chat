@@ -1,19 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        await axios.post('http://localhost:5000/api/login', {
+            username: username,
+            password: password
+        }).then(response => {
+            if (response.data.message) {
+                toast.error(response.data.message)
+            }
+            else {
+                navigate('/chats')
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
     return (
         <div className="main-div">
             <Container component="main" maxWidth="xs">
@@ -36,11 +60,12 @@ const Login = () => {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
+                            id="username"
                             label="Username"
                             name="username"
                             autoComplete="username"
                             autoFocus
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <TextField
                             className="field"
@@ -52,16 +77,14 @@ const Login = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            onClick={handleLogin}
                         >
                             Sign In
                         </Button>
