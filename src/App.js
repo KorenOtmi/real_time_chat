@@ -5,6 +5,7 @@ import Register from '../src/pages/auth/signup/Register';
 import Home from '../src/pages/home/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Login />}></Route>
         <Route path='/register' element={<Register />}></Route>
-        <Route path='/chats' element={<Home />}></Route>
+        <Route path="/chats" element={<ProtectedRoutes><Home /></ProtectedRoutes>} />
       </Routes>
     </BrowserRouter>
 

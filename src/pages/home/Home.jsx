@@ -1,12 +1,17 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 
 const Home = () => {
 
-    const BtnSend = (e) => {
-        e.preventDefault();
-        console.log('work')
-    }
+    const [allUsers, setAllUsers] = useState([]);
+
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/api/allusers').then(response => {
+            setAllUsers(response.data)
+        })
+    }, []);
 
     return (
         <main className="content">
@@ -24,80 +29,24 @@ const Home = () => {
                                 </div>
                             </div>
 
-                            <a href="#" className="list-group-item list-group-item-action border-0">
-                                <div className="badge bg-success float-right">5</div>
-                                <div className="d-flex align-items-start">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar5.png" className="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40" />
-                                    <div className="flex-grow-1 ml-3">
-                                        Vanessa Tucker
-                                        <div className="small"><span className="fas fa-circle chat-online"></span> Online</div>
+                            {
+                                allUsers.map(user => (
+                                    <div key={user.id}>
+                                        <div className="badge bg-success float-right">5</div>
+                                        <div className="d-flex align-items-start">
+                                            <img src={user.image} className="rounded-circle mr-1" alt={user.fullName} width="40" height="40" />
+                                            <div className="flex-grow-1 ml-3">
+                                                {user.fullName}
+                                                <div className="small"><span className="fas fa-circle chat-online"></span> Online</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                            <a href="#" className="list-group-item list-group-item-action border-0">
-                                <div className="badge bg-success float-right">2</div>
-                                <div className="d-flex align-items-start">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" className="rounded-circle mr-1" alt="William Harris" width="40" height="40" />
-                                    <div className="flex-grow-1 ml-3">
-                                        William Harris
-                                        <div className="small"><span className="fas fa-circle chat-online"></span> Online</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" className="list-group-item list-group-item-action border-0">
-                                <div className="d-flex align-items-start">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" className="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40" />
-                                    <div className="flex-grow-1 ml-3">
-                                        Sharon Lessman
-                                        <div className="small"><span className="fas fa-circle chat-online"></span> Online</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" className="list-group-item list-group-item-action border-0">
-                                <div className="d-flex align-items-start">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar4.png" className="rounded-circle mr-1" alt="Christina Mason" width="40" height="40" />
-                                    <div className="flex-grow-1 ml-3">
-                                        Christina Mason
-                                        <div className="small"><span className="fas fa-circle chat-offline"></span> Offline</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" className="list-group-item list-group-item-action border-0">
-                                <div className="d-flex align-items-start">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar5.png" className="rounded-circle mr-1" alt="Fiona Green" width="40" height="40" />
-                                    <div className="flex-grow-1 ml-3">
-                                        Fiona Green
-                                        <div className="small"><span className="fas fa-circle chat-offline"></span> Offline</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" className="list-group-item list-group-item-action border-0">
-                                <div className="d-flex align-items-start">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" className="rounded-circle mr-1" alt="Doris Wilder" width="40" height="40" />
-                                    <div className="flex-grow-1 ml-3">
-                                        Doris Wilder
-                                        <div className="small"><span className="fas fa-circle chat-offline"></span> Offline</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" className="list-group-item list-group-item-action border-0">
-                                <div className="d-flex align-items-start">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar4.png" className="rounded-circle mr-1" alt="Haley Kennedy" width="40" height="40" />
-                                    <div className="flex-grow-1 ml-3">
-                                        Haley Kennedy
-                                        <div className="small"><span className="fas fa-circle chat-offline"></span> Offline</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" className="list-group-item list-group-item-action border-0">
-                                <div className="d-flex align-items-start">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" className="rounded-circle mr-1" alt="Jennifer Chang" width="40" height="40" />
-                                    <div className="flex-grow-1 ml-3">
-                                        Jennifer Chang
-                                        <div className="small"><span className="fas fa-circle chat-offline"></span> Offline</div>
-                                    </div>
-                                </div>
-                            </a>
+
+                                ))
+                            }
+
+
+
                             <hr className="d-block d-lg-none mt-1 mb-0" />
                         </div>
                         <div className="col-12 col-lg-7 col-xl-9">
@@ -261,7 +210,7 @@ const Home = () => {
                             <div className="flex-grow-0 py-3 px-4 border-top">
                                 <div className="input-group">
                                     <input type="text" className="form-control" placeholder="Type your message" />
-                                    <button className="btn btn-primary" onClick={BtnSend}>Send</button>
+                                    <button className="btn btn-primary">Send</button>
                                 </div>
                             </div>
 

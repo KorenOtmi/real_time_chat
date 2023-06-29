@@ -31,7 +31,9 @@ const Login = () => {
                 toast.error(response.data.message)
             }
             else {
+                localStorage.setItem('userToken', response.data.token)
                 navigate('/chats')
+
             }
         }).catch(err => {
             console.log(err)

@@ -1,12 +1,13 @@
 const con = require('../DB/db');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-// exports.GetUsers = async (req, res) => {
-//     await con.execute("SELECT * FROM users", (err, result) => {
-//         if (err) return err
-//         res.send(result)
-//     });
-// };
+exports.GetUsers = async (req, res) => {
+    await con.execute("SELECT * FROM users", (err, result) => {
+        if (err) return err
+        res.send(result)
+    });
+};
 
 exports.getUsersById = async (req, res) => {
 
@@ -14,7 +15,7 @@ exports.getUsersById = async (req, res) => {
 
 
 exports.Register = async (req, res) => {
-    const { fullName, username, password} = req.body;
+    const { fullName, username, password } = req.body;
     const image = req.file.filename;
 
     con.execute("SELECT username FROM users WHERE username=?", [username], async (err, result) => {
@@ -41,7 +42,8 @@ exports.Login = async (req, res) => {
         if (result.length > 0) {
             bcrypt.compare(password, result[0].password, (error, response) => {
                 if (response) {
-                    res.send(result);
+                    const token = jwt.sign({ username: username }, 'somesecretkey');
+                    res.send({ token: token });
                 }
                 else {
                     res.send({ message: "Wrong username/password combination !" });

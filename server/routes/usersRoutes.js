@@ -33,7 +33,7 @@ var upload = multer({
 const routerControllers = require('../controllers/usersController');
 
 
-// router.get('/allusers', routerControllers.GetUsers);
+router.get('/allusers', routerControllers.GetUsers);
 router.get('/getUsers/:id', routerControllers.getUsersById);
 router.post('/register', upload.single('UserImage'), routerControllers.Register);
 router.post('/login', routerControllers.Login);
